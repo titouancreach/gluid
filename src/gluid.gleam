@@ -52,35 +52,27 @@ pub fn guidv4() -> String {
   // - the 7th byte is the 3rd byte of B
   // - the 9th byte is the 1st byte of C
 
-  // set A
-  let randoma = int.random(0xFF_FF_FF_FF)
-  let a =
-    int.to_base16(randoma)
+    let a =
+    int.random(0xFF_FF_FF_FF)
+    |> int.to_base16
     |> string.pad_left(8, "0")
 
-  // set B
-  let randomb = int.random(0xFF_FF_FF_FF)
-  let clear_mask = 0xFF_FF_0F_FF
-  let randomb = int.bitwise_and(randomb, clear_mask)
-  let value_mask = 0x00_00_40_00
-    let randomb = int.bitwise_or(randomb, value_mask)
-  let b =
-    int.to_base16(randomb)
+    let b =
+    int.random(0xFF_FF_FF_FF)
+    |> int.bitwise_and(0xFF_FF_0F_FF)
+    |> int.bitwise_or(0x00_00_40_00)
+    |> int.to_base16
     |> string.pad_left(8, "0")
 
-  // set C
-  let randomc = int.random(0xFF_FF_FF_FF)
-  let clear_mask = 0x3F_FF_FF_FF
-  let randomc = int.bitwise_and(randomc, clear_mask)
-  let value_mask = 0x80_00_00_00
-  let randomc = int.bitwise_or(randomc, value_mask)
-  let c =
-    int.to_base16(randomc)
+    let c =
+    int.random(0xFF_FF_FF_FF)
+    |> int.bitwise_and(0x3F_FF_FF_FF)
+    |> int.bitwise_or(0x80_00_00_00)
+    |> int.to_base16
     |> string.pad_left(8, "0")
 
-  let randomd = int.random(0xFF_FF_FF_FF)
-  let d =
-    randomd
+    let d =
+    int.random(0xFF_FF_FF_FF)
     |> int.to_base16
     |> string.pad_left(8, "0")
 
