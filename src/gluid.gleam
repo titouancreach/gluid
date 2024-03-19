@@ -53,38 +53,32 @@ pub fn guidv4() -> String {
   // - the 9th byte is the 1st byte of C
 
   // set A
-  let randoma = int.random(0xFFFFFFFF)
+  let randoma = int.random(0xFF_FF_FF_FF)
   let a =
     int.to_base16(randoma)
     |> string.pad_left(8, "0")
 
   // set B
-  let randomb = int.random(0xFFFFFFFF)
-  let clear_mask = int.bitwise_not(int.bitwise_shift_left(0xF, 12))
-  // 0000 1111 1111 1111
+  let randomb = int.random(0xFF_FF_FF_FF)
+  let clear_mask = 0xFF_FF_0F_FF
   let randomb = int.bitwise_and(randomb, clear_mask)
-  let value_mask = int.bitwise_shift_left(0x4, 12)
-  // 0100 0000 0000 0000
-  // ^^^^
-  let randomb = int.bitwise_or(randomb, value_mask)
+  let value_mask = 0x00_00_40_00
+    let randomb = int.bitwise_or(randomb, value_mask)
   let b =
     int.to_base16(randomb)
     |> string.pad_left(8, "0")
 
   // set C
-  let randomc = int.random(0xFFFFFFFF)
-  let clear_mask = int.bitwise_not(int.bitwise_shift_left(0x3, 30))
-  // 0011_1111 1111_1111 1111_1111 1111_1111
+  let randomc = int.random(0xFF_FF_FF_FF)
+  let clear_mask = 0x3F_FF_FF_FF
   let randomc = int.bitwise_and(randomc, clear_mask)
-  let value_mask = int.bitwise_shift_left(0x2, 30)
-  // 1000_0000 0000_0000 0000_0000 0000_0000
-  // ^^
+  let value_mask = 0x80_00_00_00
   let randomc = int.bitwise_or(randomc, value_mask)
   let c =
     int.to_base16(randomc)
     |> string.pad_left(8, "0")
 
-  let randomd = int.random(0xFFFFFFFF)
+  let randomd = int.random(0xFF_FF_FF_FF)
   let d =
     randomd
     |> int.to_base16
