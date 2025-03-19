@@ -1,5 +1,5 @@
-import gleam/io
 import gleam/int
+import gleam/io
 import gleam/string
 
 fn split_to_chunks(src: String, chunk_size: Int) -> List(String) {
@@ -16,7 +16,7 @@ fn split_to_chunks(src: String, chunk_size: Int) -> List(String) {
 fn binary_pprint(src: Int) -> String {
   src
   |> int.to_base2
-  |> string.pad_left(32, "0")
+  |> string.pad_start(32, "0")
   |> split_to_chunks(4)
   |> string.join(" ")
 }
@@ -52,29 +52,29 @@ pub fn guidv4() -> String {
   // - the 7th byte is the 3rd byte of B
   // - the 9th byte is the 1st byte of C
 
-    let a =
+  let a =
     int.random(0xFF_FF_FF_FF)
     |> int.to_base16
-    |> string.pad_left(8, "0")
+    |> string.pad_start(8, "0")
 
-    let b =
+  let b =
     int.random(0xFF_FF_FF_FF)
     |> int.bitwise_and(0xFF_FF_0F_FF)
     |> int.bitwise_or(0x00_00_40_00)
     |> int.to_base16
-    |> string.pad_left(8, "0")
+    |> string.pad_start(8, "0")
 
-    let c =
+  let c =
     int.random(0xFF_FF_FF_FF)
     |> int.bitwise_and(0x3F_FF_FF_FF)
     |> int.bitwise_or(0x80_00_00_00)
     |> int.to_base16
-    |> string.pad_left(8, "0")
+    |> string.pad_start(8, "0")
 
-    let d =
+  let d =
     int.random(0xFF_FF_FF_FF)
     |> int.to_base16
-    |> string.pad_left(8, "0")
+    |> string.pad_start(8, "0")
 
   let concatened = a <> b <> c <> d
 
