@@ -1,5 +1,4 @@
 import gleam/int
-import gleam/io
 import gleam/string
 
 fn split_to_chunks(src: String, chunk_size: Int) -> List(String) {
@@ -13,13 +12,6 @@ fn split_to_chunks(src: String, chunk_size: Int) -> List(String) {
   }
 }
 
-fn binary_pprint(src: Int) -> String {
-  src
-  |> int.to_base2
-  |> string.pad_start(32, "0")
-  |> split_to_chunks(4)
-  |> string.join(" ")
-}
 
 fn format_uuid(src: String) -> String {
   string.slice(src, 0, 8)
